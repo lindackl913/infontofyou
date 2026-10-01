@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<title>Linda|斜槓人</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Noto+Serif+TC:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    color-scheme: dark;
+    --bg: #07080f;
+    --ink: #f6f3ee;
+    --muted: #bdb8c9;
+    --line: rgba(246, 243, 238, 0.18);
+    --accent: #ffc9a3;
+    --font-display: "Cormorant Garamond", "Noto Serif TC", "Songti TC", "PMingLiU", Georgia, serif;
+    --font-body: "Noto Serif TC", "Songti TC", "PMingLiU", Georgia, "Times New Roman", serif;
+
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html { height: 100%; scroll-padding-top: env(safe-area-inset-top, 0px); background: var(--bg); }
+  body {
+    margin: 0;
+    min-height: 100%;
+    position: relative;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-weight: 400;
+    line-height: 1.95;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* Animated gradient background */
+  .aurora {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+    background: var(--bg);
+  }
+  .aurora::before {
+    content: "";
+    position: absolute;
+    inset: -30%;
+    background:
+      radial-gradient(40% 40% at 20% 25%, rgba(88, 56, 230, 0.75), transparent 70%),
+      radial-gradient(38% 38% at 80% 20%, rgba(214, 51, 108, 0.55), transparent 70%),
+      radial-gradient(45% 45% at 70% 80%, rgba(14, 165, 164, 0.5), transparent 70%),
+      radial-gradient(35% 35% at 15% 85%, rgba(255, 160, 110, 0.35), transparent 70%);
+    filter: blur(40px) saturate(120%);
+    animation: drift 28s ease-in-out infinite alternate;
+    will-change: transform;
+  }
+  .aurora::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 40%, rgba(7, 8, 15, 0.15), rgba(7, 8, 15, 0.75) 100%);
+  }
+  @keyframes drift {
+    0%   { transform: translate3d(-4%, -3%, 0) rotate(0deg) scale(1); }
+    50%  { transform: translate3d(5%, 4%, 0) rotate(8deg) scale(1.12); }
+    100% { transform: translate3d(-2%, 6%, 0) rotate(-6deg) scale(1.05); }
+  }
+
+  .page {
+    position: relative;
+    z-index: 1;
+    min-height: 100dvh;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: clamp(2rem, 6vw, 4.5rem) clamp(1.25rem, 6vw, 3rem);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: clamp(3rem, 8vw, 6rem);
+  }
+
+  /* Hero */
+  .hero { padding-top: clamp(1rem, 6vh, 4rem); }
+
+  .intro {
+    margin: 0 0 clamp(0.75rem, 2.5vw, 1.25rem);
+    font-size: clamp(1rem, 2.4vw, 1.2rem);
+    color: var(--muted);
+    font-weight: 300;
+  }
+
+  h1 {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(5rem, 26vw, 14rem);
+    line-height: 0.9;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+  }
+
+  .roles {
+    margin: clamp(1rem, 3vw, 2rem) 0 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0 0.5em;
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: clamp(1.4rem, 5vw, 2.25rem);
+    line-height: 1.5;
+  }
+  .roles li { display: inline-flex; align-items: baseline; gap: 0.5em; }
+  .roles li + li::before {
+    content: "/";
+    color: var(--accent);
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 1.35em;
+    display: inline-block;
+    transform-origin: 50% 80%;
+    animation: slash-in 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+  .roles li:nth-child(2)::before { animation-delay: 0.15s; }
+  .roles li:nth-child(3)::before { animation-delay: 0.3s; }
+
+  @keyframes slash-in {
+    from { opacity: 0; transform: translateX(-0.5em) rotate(-24deg); }
+    to   { opacity: 1; transform: none; }
+  }
+
+  /* About */
+  .about { max-width: 32em; }
+  .about p {
+    margin: 0;
+    font-size: clamp(1rem, 2.2vw, 1.125rem);
+    color: var(--ink);
+  }
+
+  /* Social */
+  footer {
+    border-top: 1px solid var(--line);
+    padding-top: 1.5rem;
+  }
+  footer h2 {
+    margin: 0 0 0.75rem;
+    font-size: 0.95rem;
+    font-weight: 400;
+    color: var(--muted);
+  }
+  .social {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem 1.75rem;
+  }
+  .social a {
+    display: inline-block;
+    padding: 0.4rem 0;
+    color: var(--ink);
+    text-decoration: none;
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 1.3rem;
+    background: linear-gradient(var(--accent), var(--accent)) 0 100% / 0 1px no-repeat;
+    transition: background-size 0.25s ease, color 0.2s ease;
+  }
+  .social a:hover { background-size: 100% 1px; color: var(--accent); }
+  .social a:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 4px;
+    border-radius: 2px;
+  }
+
+  @media (max-width: 520px) {
+    .social { flex-direction: column; gap: 0; }
+    .social li { border-bottom: 1px solid var(--line); }
+    .social li:last-child { border-bottom: 0; }
+    .social a { display: block; padding: 0.7rem 0; background: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .aurora::before { animation: none; }
+    .roles li + li::before { animation: none; }
+    .social a { transition: none; }
+  }
+</style>
+</head>
+<body>
+  <div class="aurora" aria-hidden="true"></div>
+  <main class="page">
+    <section class="hero">
+      <p class="intro">你好,我是 Linda,一個不想只選一條路的斜槓人。</p>
+      <h1>Linda</h1>
+      <!-- 把下面三個身份改成你自己的 -->
+      <ul class="roles" aria-label="我的身份">
+        <li>設計師</li>
+        <li>寫作者</li>
+        <li>講師</li>
+      </ul>
+    </section>
+
+    <section class="about" aria-labelledby="about-title">
+      <h2 id="about-title" hidden>關於我</h2>
+      <p>
+        我相信身份不必二選一。白天做設計,晚上寫文字,偶爾站上講台分享;
+        這幾件事看起來不同,其實都在做同一件事:把複雜的想法,變成別人看得懂、也願意靠近的東西。
+        這裡是我的小小據點,如果你也同時走著好幾條路,歡迎來聊聊。
+      </p>
+    </section>
+
+    <footer>
+      <h2>找到我</h2>
+      <!-- 把每個 href="#" 換成你的實際連結 -->
+      <ul class="social">
+        <li><a href="#" rel="noopener">Instagram</a></li>
+        <li><a href="#" rel="noopener">Threads</a></li>
+        <li><a href="#" rel="noopener">LinkedIn</a></li>
+        <li><a href="#" rel="noopener">YouTube</a></li>
+        <li><a href="#" rel="noopener">Email</a></li>
+      </ul>
+    </footer>
+  </main>
+</body>
+</html>
